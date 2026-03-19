@@ -18,3 +18,34 @@ dat <- raw |>
     "Total Live-Births|Total Fertility Rate \\(TFR\\) \\(Per Female\\)",
     DataSeries
   ))
+
+# Pivot to long format
+dat_long <- dat |>
+  mutate(across(-DataSeries, as.character)) |>
+  pivot_longer(
+    cols = -DataSeries,
+    names_to = "year",
+    values_to = "value"
+  ) |>
+  mutate(
+    year = as.integer(gsub("X", "", year)),
+    value = suppressWarnings(as.numeric(value))
+  ) |>
+  filter(year >= 1960 & year <= 2024) |>
+  filter(!is.na(value))
+
+# Separate and join
+tlb <- dat_long |>
+  filter(grepl("Total Live-Births", DataSeries)) |>
+  select(year, TLB = value)
+
+tfr <- dat_long |>
+  filter(grepl("Total Fertility Rate", DataSeries)) |>
+  select(year, TFR = value)
+
+sg_data <- left_join(tlb, tfr, by = "year") |>
+  as_tsibble(index = year)
+
+# Training and test split
+sg_train <- sg_data |> filter(year <= 2012)
+sg_test  <- sg_data |> filter(year >= 2013)
