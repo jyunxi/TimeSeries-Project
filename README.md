@@ -20,7 +20,7 @@ Two major policy phases are likely to have created visible structural breaks in 
 - **Pro-natalist phase (1987–present):** The slogan shifted to "Have Three or More, If You Can Afford It", reversing earlier policies with tax rebates and childcare subsidies.
 
 ## Project Stages
-- **Stage 1 – EDA** *(in progress)*: Explore and visualise the data, assess stationarity, examine ACF/PACF structure, and identify candidate models.
+- **Stage 1 – EDA** *(complete)*: Explore and visualise the data, assess stationarity, examine ACF/PACF structure, and identify candidate models.
 - **Stage 2 – Final Report** *(upcoming)*: Fit and compare at least 2 time series models per indicator, forecast 2013–2024, and evaluate model performance.
 
 ## Repository Structure
